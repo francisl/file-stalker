@@ -10,7 +10,10 @@ def command_usage():
     to_print = """
 **** Need to be run inside the directory where you manage.py is
 #### usage :
-        stalker.py CMD
+        stalk.py directory_to_watch CMD
+
+        e.g.
+            stalk.py authorization ./manage.py test authorization/
     """
     print(to_print)
     return False
@@ -22,7 +25,6 @@ running_test_text_short = """
  | '__| | | | '_ \| '_ \| | '_ \ / _` |  / __/ _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` |
  | |  | |_| | | | | | | | | | | | (_| | | (_| (_) | | | | | | | | | | | (_| | | | | (_| |_ _ _
  |_|   \__,_|_| |_|_| |_|_|_| |_|\__, |  \___\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_(_|_|_)
-                                 |___/
                                  |___/
 """
 waiting_text_short = """
@@ -114,7 +116,7 @@ def launch_cmd(path, cmd):
 def setup_required_param(argv):
     if len(argv) < 3:
         command_usage()
-        return False
+        exit()
     cmd_sp = ' '
     return { 'cmd': cmd_sp.join(argv[2:]),
              'path': './',
@@ -126,9 +128,9 @@ def setup_cmd(path, cmd):
         launch_cmd(path, cmd)
     return closure
 
-
 if __name__ == "__main__":
     settings = setup_required_param(sys.argv)
+
     cmd = setup_cmd(settings.get("path"), settings.get("cmd"))
     if settings:
         watch_app_for_py_change(settings['watch_path'], cmd)

@@ -17,6 +17,7 @@ setup(
     description = "Skalk a directory and run a command when something change",
     license ="MIT License",
     url = "git@github.com:francisl/file-stalker.git",
+    scripts=['src/stalk.py'],
     packages = [
         "src"
     ],
